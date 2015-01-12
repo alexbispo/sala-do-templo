@@ -123,7 +123,7 @@ Seu programa deve imprimir, na saída padrão, uma única linha para cada caso d
 
 """
 
-desenv = False
+desenv = True
 
 def detect(ret_a, ret_b):
     
@@ -144,8 +144,13 @@ def _doctest():
     
     import doctest
     doctest.testmod()
+    
+if desenv:
+    if __name__ == "__main__":      
+        
+        _doctest()
 
-if not desenv:
+else:
     line_a = raw_input()
     ret_a = map(int, list(line_a.replace(" ", "")))
 
@@ -153,7 +158,4 @@ if not desenv:
     ret_b = map(int, list(line_b.replace(" ", "")))
 
     print detect(ret_a, ret_b)
-
-if __name__ == "__main__" and desenv:      
     
-    _doctest()
