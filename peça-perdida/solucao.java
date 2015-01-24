@@ -1,59 +1,54 @@
 import java.util.Scanner;
 
-
 public class solucao {
-	
-	static Scanner scanner = new Scanner(System.in); 
-	int pecaFaltando = 0; 
-	
+
 	public static void main(String[] args) {
-		System.out.println("Digite um numero entre 2 e 1000");
-		int n = scanner.nextInt();
-		
-		if (n <= 1 || n > 1000) {
-			System.out.println("Digite um numero entre 2 e 1000");
+		Scanner scanner = new Scanner(System.in);
+
+		int n = scanner.nextInt(); // Recebe valor digitado pelo usuario
+
+		while (n <= 2 && n <= 1000) {
+			System.out.println("Digite o numero novamente");
 			n = scanner.nextInt();
 		}
-		
-		int pecaFaltando = new solucao().setPecasDoQuebraCabeca(n);
-		
-		System.out.println(pecaFaltando);
+
+		System.out.println(new solucao().pecaPerdida(n));
+
 	}
-	
-	
-	public int setPecasDoQuebraCabeca(int n){
+
+	public int pecaPerdida(int n) {
+		Scanner scanner = new Scanner(System.in);
+
+		int pecas[] = new int[n - 1]; 
+		int pecaFaltando = 0;
 		
-		int arrayPecas [] = new int [n]; 
-		int pecasDoQueBraCabeça = 0; 
-		
-		for (int i = 1; i < n; i++) {
-			System.out.println("Digite as pecas");
-			pecasDoQueBraCabeça = scanner.nextInt();
-			
-			if (pecasDoQueBraCabeça > n ) {
-				System.out.println("Digite as peças menores que: " +  n);
-				pecasDoQueBraCabeça = scanner.nextInt();
+		String[] entradaDois = scanner.nextLine().split(" ");
+
+		for (int i = 0; i < pecas.length; i++) { 
+			pecas[i] = Integer.parseInt(entradaDois[i]);
+		}
+
+		for (int i = 0; i < n; i++) {
+
+			if (getPecaFaltando(pecas, n - i)) {
+				pecaFaltando = n - i;
 			}
-			
-			arrayPecas [i] = pecasDoQueBraCabeça;
 		}
-		
-		return getPecaFaltando(arrayPecas, n);
+
+		return pecaFaltando;
 	}
-	
-	public int getPecaFaltando(int[]arrayPecas, int n){
-		
-		int indiceArray = n - 1; 
-		
-		for (int i = 0; i < arrayPecas.length; i++) {
-			
-			if (arrayPecas[indiceArray - i] !=  n - i) {
-				pecaFaltando = n - i; 
-				break;
-			} 
+
+	public boolean getPecaFaltando(int pecas[], int n) {
+		boolean pecaNaoFoiDigitada = true;
+
+		for (int peca : pecas) {
+
+			if (peca == n) {
+				pecaNaoFoiDigitada = false;
+			}
 		}
-		
-		return pecaFaltando; 
+
+		return pecaNaoFoiDigitada;
 	}
 
 }
